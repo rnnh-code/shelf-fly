@@ -112,5 +112,5 @@ with gr.Blocks(title="Shelf Fly") as demo:
 if __name__ == "__main__":
     shelfly.models()  # load before the first click so nobody waits twice
     # no fixed port: if an older copy is still running, take the next free one instead of dying
-    demo.launch(theme=gr.themes.Soft(primary_hue="green"), server_name="127.0.0.1",
-                inbrowser=True, share=False)
+    # address and port come from the environment on Hugging Face; locally this is 127.0.0.1
+    demo.launch(theme=gr.themes.Soft(primary_hue="green"), inbrowser=True, share=False)

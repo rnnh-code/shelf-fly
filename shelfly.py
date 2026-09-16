@@ -10,6 +10,7 @@ import base64
 import logging
 import io
 import json
+import subprocess
 import sys
 from pathlib import Path
 from string import Template
@@ -198,6 +199,9 @@ _MODELS = None
 def models():
     """Load the 5 trained fly models once and keep them (about 20 seconds the first time)."""
     global _MODELS
+    if not (flyvis.results_dir / "flow/0000/004").exists():
+        print("First run: downloading the trained fly models from the flyvis project (a few MB)...", flush=True)
+        subprocess.run([sys.executable, "-m", "flyvis_cli.download_pretrained_models"], check=True)
     if _MODELS is None:
         _MODELS = (
             BoxEye(),

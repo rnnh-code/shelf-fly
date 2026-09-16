@@ -13,11 +13,10 @@ git clone https://github.com/rnnh-code/shelf-fly.git
 cd shelf-fly
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
-.venv/bin/flyvis download-pretrained      # fetches the trained fly models, about 100 MB
-.venv/bin/python app.py                   # opens the page in your browser
+.venv/bin/python app.py      # opens the page in your browser
 ```
 
-Drop a photo in each box, name them, press the button. About a minute later you get both fly's-eye views and a plain-English verdict. There's a button that loads two versions of a made-up cereal box if you just want to see it work.
+The first run downloads the trained fly models from the flyvis project (a few MB). Drop a photo in each box, name them, press the button. About a minute later you get both fly's-eye views and a plain-English verdict. There's a button that loads two versions of a made-up cereal box if you just want to see it work.
 
 Prefer the command line?
 

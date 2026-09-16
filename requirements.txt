@@ -1,6 +1,8 @@
+# CPU build of PyTorch: much smaller, and the fly model does not need a graphics card
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.0
 flyvis==1.2.0
 gradio==6.27.0
 matplotlib==3.11.2
 numpy==2.5.3
 pillow==12.3.0
-torch==2.14.0
