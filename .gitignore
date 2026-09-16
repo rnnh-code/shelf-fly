@@ -1,0 +1,12 @@
+# local install and model weights (fetched by setup, 1.5 GB)
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# not for publishing: third-party product photos, results that embed them, private planning notes
+photos/
+results/
+design/
+DECISIONS.md
+.gradio/
