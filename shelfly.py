@@ -238,6 +238,54 @@ def analyse(path):
     }
 
 
+def plain_verdict(a, b):
+    """Turn the numbers into a few sentences anyone can read."""
+    win, lose = (a, b) if a["score"] > b["score"] else (b, a)
+    gap = win["score"] / lose["score"]
+    agree = sum((x > y) == (a["score"] > b["score"]) for x, y in zip(a["per_model"], b["per_model"]))
+    contrast_agrees = (win["stand_out"] > lose["stand_out"])
+    size_gap = max(win["coverage"], lose["coverage"]) / max(min(win["coverage"], lose["coverage"]), 1e-6)
+
+    if gap < 1.15:
+        strength, how_much = "a close call", f"only about {round((gap - 1) * 100)}% more"
+    elif gap < 1.5:
+        strength, how_much = "a clear win", f"about {round((gap - 1) * 100)}% more"
+    else:
+        strength, how_much = "a big win", f"{gap:.1f} times more"
+
+    if agree == N_MODELS:
+        sure = f"We ran {N_MODELS} versions of the fly and **all of them agreed.**"
+    elif agree >= N_MODELS - 1:
+        sure = f"We ran {N_MODELS} versions of the fly and **{agree} agreed**, so this is fairly solid."
+    else:
+        sure = f"We ran {N_MODELS} versions of the fly and they **split {agree} to {N_MODELS - agree}.** Treat this as a toss-up."
+
+    if contrast_agrees:
+        why = f"**Why:** {win['name']} has more light-versus-dark contrast, and that's mostly what a fly's eye picks up."
+    else:
+        why = (f"**Why:** interesting one. {lose['name']} actually has more contrast, but the fly still reacted more to "
+               f"{win['name']}, so its shape or pattern mattered more than plain contrast.")
+
+    if size_gap > 1.25:
+        bigger = win if win["coverage"] > lose["coverage"] else lose
+        fair = (f"**Heads up:** {bigger['name']} takes up noticeably more of its photo, which gives it an unfair boost. "
+                f"Use photos where both products are about the same size for a fairer test.")
+    else:
+        fair = "**Fair test:** both products take up about the same space in their photos, so size didn't decide this."
+
+    return f"""## {win['name']} gets noticed first ({strength})
+The fly's brain reacted {how_much} to **{win['name']}** than to {lose['name']}.
+
+{sure}
+
+{why}
+
+{fair}
+
+*What this means: {win['name']} is more likely to catch an eye first on a shelf. It doesn't tell you which one people would rather buy.*
+"""
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("photos", nargs=2, help="the two product photos to compare")

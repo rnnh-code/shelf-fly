@@ -6,6 +6,8 @@ The fly sees in blurry black and white: 721 grey hexagons instead of pixels. It 
 
 A higher reaction means a package is more likely to catch an eye first. It says nothing about which product people would rather buy.
 
+**[See it in action →](https://huggingface.co/spaces/rnn123/shelf-fly)** Four made-up pack matchups, each changing one thing: dark vs light bottle, big vs small logo, one bold mark vs a busy pattern.
+
 ## Try it
 
 ```bash
@@ -25,6 +27,8 @@ Prefer the command line?
 ```
 
 That writes a shareable result page to `results/`.
+
+To rebuild the online gallery from the packs in `examples/`: `.venv/bin/python build_gallery.py` writes `gallery/index.html`, a single file any static host can serve.
 
 For a fair test, use photos where both products sit on a plain background at roughly the same size. A product that fills more of its photo gets a boost for that alone, and the page warns you when that happens.
 
@@ -46,7 +50,7 @@ We tried hard to break our own results, because a demo like this can easily look
 ## Credits
 
 - Fly vision model: [flyvis](https://github.com/TuragaLab/flyvis) (MIT licence), from Lappalainen et al., "Connectome-constrained networks predict neural activity across the fly visual system", *Nature* (2024). It is built on connectome data from Janelia Research Campus.
-- The example cereal boxes are made up for this project.
+- Every brand in `examples/` and in the gallery is made up for this project.
 
 ## Licence
 
